@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '../../assets/logo.png'
+import image from '../../assets/Log & icon/logo.png'
 
 const Fotter = () => {
     return (

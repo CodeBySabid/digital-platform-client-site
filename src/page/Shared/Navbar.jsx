@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router';
-import image from '../../assets/logo.png'
+import image from '../../assets/Log & icon/logo.png'
 import { HiXMark } from 'react-icons/hi2';
 import { IoMenuOutline, IoMoonSharp, IoSunny } from 'react-icons/io5';
 import '../ButtonStyle/loginbutton.css'
 
-const Navbar = () => {
+const Navbar = ({theme, setTheme}) => {
     const [open, setOpen] = useState(false);
     const dropDown = useRef(null);
     const [hideNav, setHidenav] = useState(false);
     const lastScrolly = useRef(0);
-    const [theme, setTheme] = useState("dark")
+    // const [theme, setTheme] = useState("dark")
 
     useEffect(() => {
         const handleScroll = () => {
@@ -72,13 +72,16 @@ const Navbar = () => {
         <NavLink>Home</NavLink>
         <NavLink>Home</NavLink>
     </>
+    
+    
+    
 
     return (
         <div className={`fixed top-0 left-1/2 transform -translate-x-1/2 w-full z-50 transition-transform duration-300 ${hideNav ? "-translate-y-full" : "translate-y-0"} bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl border-b border-white/10 shadow-lg `}>
             <div className='flex justify-between px-4 py-2 items-center'>
                 <Link className='relative'>
                     <img className='max-sm:h-11' src={image} alt="" />
-                    <h1 className='absolute -bottom-1 left-5  text-3xl max-sm:text-2xl'>ZapShift</h1>
+                    <h1 className='absolute font-bold -bottom-1 left-5  text-3xl max-sm:text-2xl'>ZapShift</h1>
                 </Link>
                 <div className='hidden lg:flex gap-2.5'>
                     {links}
@@ -105,7 +108,7 @@ const Navbar = () => {
                         </div>
                     </button>
                 </div>
-                <button onClick={toggleTheme} className='absolute lg:right-62 right-14 text-2xl'>
+                <button onClick={toggleTheme} className='absolute lg:right-64 right-14 text-2xl'>
                     {
                         theme === "dark" ? <IoSunny></IoSunny> : <IoMoonSharp></IoMoonSharp>
                     }
