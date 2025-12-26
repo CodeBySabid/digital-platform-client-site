@@ -4,7 +4,7 @@ import Fotter from '../page/Shared/Fotter';
 import Navbar from '../page/Shared/Navbar';
 
 const MainLayout = () => {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState('dark');
 
     return (
         <div>
