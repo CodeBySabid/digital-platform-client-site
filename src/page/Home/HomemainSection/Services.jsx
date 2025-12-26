@@ -3,7 +3,7 @@ import serviceimage from '../../../assets/Log & icon/service.png'
 
 const Services = () => {
     return (
-        <div>
+        <div className='max-w-7xl mx-auto'>
             <section className="bg-[#073b3f] rounded-3xl py-16 px-6 md:px-12">
       {/* Heading */}
       <div className="text-center mb-12 text-white">

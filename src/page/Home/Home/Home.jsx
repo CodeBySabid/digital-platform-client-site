@@ -2,8 +2,9 @@ import React from 'react';
 import HeaderCarousel from '../banner/HeaderCarousel';
 import HowWorks from '../Howworks/HowWorks';
 import Services from '../HomemainSection/Services';
-import Brands from '../../brands/Brands';
 import Features from '../HomemainSection/Features';
+import Brands from '../HomemainSection/Brands';
+import FirstPriority from '../HomemainSection/FirstPriority';
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
                 <Services></Services>
                 <Brands></Brands>
                 <Features></Features>
+                <FirstPriority></FirstPriority>
             </div>
         </div>
     );

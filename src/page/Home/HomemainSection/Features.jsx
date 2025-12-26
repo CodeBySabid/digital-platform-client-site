@@ -22,15 +22,14 @@ const Features = () => {
         }
     ];
     
-    document.documentElement.classList.toggle('dark');
 
     return (
-        <section className="bg-gray-100 dark:bg-gray-900 py-12 sm:py-16">
+        <section className="border-y-2 max-w-7xl mx-auto border-gray-400 border-dashed py-12 sm:py-16">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
                 {features.map((item, index) => (
                     <div
                         key={index}
-                        className="bg-white dark:bg-gray-800 rounded-2xl p-5 sm:p-6 md:p-8 
+                        className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 
                                    flex flex-col sm:flex-row items-start sm:items-center gap-6 
                                    shadow-sm dark:shadow-none"
                     >
@@ -49,11 +48,11 @@ const Features = () => {
 
                         {/* Content */}
                         <div className="text-center sm:text-left">
-                            <h3 className="text-base sm:text-lg md:text-xl font-semibold 
-                                           text-gray-800 dark:text-gray-100">
+                            <h3 className="text-base  sm:text-lg md:text-xl font-semibold 
+                                           text-[#03373D] dark:text-[#03373D]">
                                 {item.title}
                             </h3>
-                            <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-300 
+                            <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-[#606060] 
                                           leading-relaxed">
                                 {item.desc}
                             </p>
