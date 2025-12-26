@@ -6,6 +6,7 @@ import Features from '../HomemainSection/Features';
 import Brands from '../HomemainSection/Brands';
 import FirstPriority from '../HomemainSection/FirstPriority';
 import Reviews from '../HomemainSection/reviews/Reviews';
+import FAQ from '../HomemainSection/FAQ';
 
 const reviewsPromise = fetch('/reviews.json').then(res => res.json());
 
@@ -20,6 +21,7 @@ const Home = () => {
                 <Features></Features>
                 <FirstPriority></FirstPriority>
                 <Reviews reviewsPromise={reviewsPromise}></Reviews>
+                <FAQ></FAQ>
             </div>
         </div>
     );
