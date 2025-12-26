@@ -5,7 +5,7 @@ import Services from '../HomemainSection/Services';
 import Features from '../HomemainSection/Features';
 import Brands from '../HomemainSection/Brands';
 import FirstPriority from '../HomemainSection/FirstPriority';
-import Reviews from '../HomemainSection/Reviews';
+import Reviews from '../HomemainSection/reviews/Reviews';
 
 const reviewsPromise = fetch('/reviews.json').then(res => res.json());
 

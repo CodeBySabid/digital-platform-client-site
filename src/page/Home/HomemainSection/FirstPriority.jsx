@@ -40,7 +40,7 @@ const FirstPriority = () => {
                         <img
                             src={heroImage}
                             alt="Courier Box"
-                            className="max-w-xs md:max-w-sm"
+                            className="max-w-xs md:max-w-sm w-[80vw]"
                         />
                     </div>
                 </div>

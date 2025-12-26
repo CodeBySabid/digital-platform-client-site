@@ -3,7 +3,7 @@ import image from '../../assets/Log & icon/logo.png'
 
 const Fotter = () => {
     return (
-        <div className='h-1250'>
+        <div>
             <footer className="footer footer-horizontal footer-center text-primary-content p-10">
                 <aside>
                     <svg
