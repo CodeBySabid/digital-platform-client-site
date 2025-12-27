@@ -7,3 +7,4 @@ npm package
 (6) npm install aos --save
 (7) react-responsive-carousel
 (8) npm install swiper
+(9) npm install react-leaflet@next

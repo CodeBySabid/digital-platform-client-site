@@ -9,7 +9,7 @@ const MainLayout = () => {
     return (
         <div>
             <Navbar theme={theme} setTheme={setTheme} />
-            <div className={`${theme === 'light' ? 'bg-gray-100' : 'bg-[#E0E0E0 ]'} pt-12 min-h-screen`}>
+            <div className={`${theme === 'light' ? 'bg-gray-100' : 'bg-[#E0E0E0 ]'} pt-16 min-h-screen`}>
                 <Outlet />
             </div>
             <Fotter />

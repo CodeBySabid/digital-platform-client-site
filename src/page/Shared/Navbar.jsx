@@ -67,10 +67,11 @@ const Navbar = ({theme, setTheme}) => {
     }, [theme])
 
     const links = <>
-        <NavLink to={'home'}>Home</NavLink>
-        <NavLink>Home</NavLink>
-        <NavLink>Home</NavLink>
-        <NavLink>Home</NavLink>
+        <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Services</NavLink>
+        <NavLink to={'/coverage'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Coverage</NavLink>
+        <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>About Us</NavLink>
+        <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Pricing</NavLink>
+        <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
     </>
     
     
@@ -79,14 +80,14 @@ const Navbar = ({theme, setTheme}) => {
     return (
         <div className={`fixed top-0 left-1/2 transform -translate-x-1/2 w-full z-50 transition-transform duration-300 ${hideNav ? "-translate-y-full" : "translate-y-0"} bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl border-b border-white/10 shadow-lg `}>
             <div className='flex justify-between px-4 py-2 items-center'>
-                <Link className='relative'>
+                <Link className='relative w-37'>
                     <img className='max-sm:h-11' src={image} alt="" />
                     <h1 className='absolute font-bold -bottom-1 left-5  text-3xl max-sm:text-2xl'>ZapShift</h1>
                 </Link>
-                <div className='hidden lg:flex gap-2.5'>
+                <div className='hidden lg:flex gap-4'>
                     {links}
                 </div>
-                <div className='hidden lg:flex gap-2.5'>
+                <div className='hidden w-71 lg:justify-end lg:flex gap-2.5'>
                     <button className="btn-53">
                         <div className="original">Log in</div>
                         <div className="letters">
@@ -121,8 +122,10 @@ const Navbar = ({theme, setTheme}) => {
             </div>
             {
                 open && (
-                    <div ref={dropDown} className='w-full mb-3 flex flex-col gap-3 items-center'>
-                        {links}
+                    <div ref={dropDown} className='flex flex-col items-center pb-4'>
+                        <div className='w-57.5 mb-3 flex flex-col gap-3 text-center'>
+                            {links}
+                        </div>
                         <div className='flex gap-2.5'>
                             <button className="btn-53">
                                 <div className="original">Log in</div>
