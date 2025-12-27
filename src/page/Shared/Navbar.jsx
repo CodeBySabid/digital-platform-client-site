@@ -68,10 +68,10 @@ const Navbar = ({theme, setTheme}) => {
 
     const links = <>
         <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Services</NavLink>
-        <NavLink to={'/coverage'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Coverage</NavLink>
-        <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>About Us</NavLink>
-        <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Pricing</NavLink>
-        <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
+        <NavLink to={'coverage'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Coverage</NavLink>
+        <NavLink to={'about'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>About Us</NavLink>
+        <NavLink to={''} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Pricing</NavLink>
+        <NavLink to={''} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
     </>
     
     

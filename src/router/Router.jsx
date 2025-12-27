@@ -3,7 +3,7 @@ import MainLayout from "../layout/MainLayout";
 import Home from "../page/Home/Home/Home";
 import Coverage from "../page/Coverage/Coverage";
 import ErrorPage from "../error/ErrorPage";
-import AboutUs from "../page/AboutUs/AboutUs";
+import AboutUs, { Story, Mission, Success, Team  } from "../page/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +21,14 @@ export const router = createBrowserRouter([
             },
             {
                 path: "about",
-                Component: AboutUs
+                Component: AboutUs,
+                children: [
+                    { index: true, element: <Story /> },
+                    { path: "story", element: <Story /> },
+                    { path: "mission", element: <Mission /> },
+                    { path: "success", element: <Success /> },
+                    { path: "team", element: <Team /> },
+                ],
             },
             {
                 path: "*",
