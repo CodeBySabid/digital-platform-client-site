@@ -8,3 +8,4 @@ npm package
 (7) react-responsive-carousel
 (8) npm install swiper
 (9) npm install react-leaflet@next
+(10) npm install react-hook-form

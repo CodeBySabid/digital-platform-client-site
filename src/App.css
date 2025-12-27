@@ -1,0 +1,12 @@
+/* Add this CSS to your global stylesheet (e.g., index.css) */
+input[type="password"] {
+    /* 1. Force the font size (e.g., 18px, equivalent to text-lg in default Tailwind) */
+    font-size: 1.155rem !important; 
+    
+    /* 2. Re-apply the vendor prefix as a direct selector, which is more reliable */
+    -webkit-text-security: disc !important;
+    
+    /* 3. Ensure the font family is standard, as some custom fonts can break the dot */
+    /* If the dots are too small, sometimes the font family is the culprit */
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}

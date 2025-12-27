@@ -3,7 +3,10 @@ import MainLayout from "../layout/MainLayout";
 import Home from "../page/Home/Home/Home";
 import Coverage from "../page/Coverage/Coverage";
 import ErrorPage from "../error/ErrorPage";
-import AboutUs, { Story, Mission, Success, Team  } from "../page/AboutUs/AboutUs";
+import AboutUs, { Story, Mission, Success, Team } from "../page/AboutUs/AboutUs";
+import AuthLayout from "../layout/AuthLayout";
+import Login from "../page/Auth/Login/Login";
+import Register from "../page/Auth/Register/Register";
 
 export const router = createBrowserRouter([
     {
@@ -47,4 +50,18 @@ export const router = createBrowserRouter([
 
         )
     },
+    {
+        path: '/',
+        Component: AuthLayout,
+        children: [
+            {
+                path: 'Register',
+                Component: Register,
+            },
+            {
+                path: '/login',
+                Component: Login,
+            },
+        ]
+    }
 ])

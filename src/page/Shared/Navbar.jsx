@@ -5,7 +5,7 @@ import { HiXMark } from 'react-icons/hi2';
 import { IoMenuOutline, IoMoonSharp, IoSunny } from 'react-icons/io5';
 import '../ButtonStyle/loginbutton.css'
 
-const Navbar = ({theme, setTheme}) => {
+const Navbar = ({ theme, setTheme }) => {
     const [open, setOpen] = useState(false);
     const dropDown = useRef(null);
     const [hideNav, setHidenav] = useState(false);
@@ -67,15 +67,41 @@ const Navbar = ({theme, setTheme}) => {
     }, [theme])
 
     const links = <>
-        <NavLink to={'/'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Services</NavLink>
-        <NavLink to={'coverage'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Coverage</NavLink>
-        <NavLink to={'about'} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>About Us</NavLink>
-        <NavLink to={''} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Pricing</NavLink>
-        <NavLink to={''} onClick={() => setOpen(false)} className={({isActive}) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
+        <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Services</NavLink>
+        <NavLink to={'coverage'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Coverage</NavLink>
+        <NavLink to={'about'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>About Us</NavLink>
+        <NavLink to={''} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Pricing</NavLink>
+        <NavLink to={''} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
     </>
-    
-    
-    
+
+    const loginAndRegister = <>
+        <Link to={'login'} className="btn-53">
+            <div className="original">Login</div>
+            <div className="letters">
+                <span>L</span>
+                <span>O</span>
+                <span>G</span>
+                <span>I</span>
+                <span>N</span>
+            </div>
+        </Link>
+        <Link to={'register'} className="btn-53">
+            <div className="original">Register</div>
+            <div className="letters">
+                <span>R</span>
+                <span>E</span>
+                <span>G</span>
+                <span>I</span>
+                <span>S</span>
+                <span>T</span>
+                <span>E</span>
+                <span>R</span>
+            </div>
+        </Link>
+    </>
+
+
+
 
     return (
         <div className={`fixed top-0 left-1/2 transform -translate-x-1/2 w-full z-50 transition-transform duration-300 ${hideNav ? "-translate-y-full" : "translate-y-0"} bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl border-b border-white/10 shadow-lg `}>
@@ -88,26 +114,7 @@ const Navbar = ({theme, setTheme}) => {
                     {links}
                 </div>
                 <div className='hidden w-71 lg:justify-end lg:flex gap-2.5'>
-                    <button className="btn-53">
-                        <div className="original">Log in</div>
-                        <div className="letters">
-                            <span>L</span>
-                            <span>O</span>
-                            <span>G I</span>
-                            <span>N</span>
-                        </div>
-                    </button>
-                    <button className="btn-53">
-                        <div className="original">Sing up</div>
-                        <div className="letters">
-
-                            <span>S</span>
-                            <span>I</span>
-                            <span>N</span>
-                            <span>G U</span>
-                            <span>P</span>
-                        </div>
-                    </button>
+                    {loginAndRegister}
                 </div>
                 <button onClick={toggleTheme} className='absolute lg:right-64 right-14 text-2xl'>
                     {
@@ -127,27 +134,7 @@ const Navbar = ({theme, setTheme}) => {
                             {links}
                         </div>
                         <div className='flex gap-2.5'>
-                            <button className="btn-53">
-                                <div className="original">Log in</div>
-                                <div className="letters">
-
-                                    <span>L</span>
-                                    <span>O</span>
-                                    <span>G I</span>
-                                    <span>N</span>
-                                </div>
-                            </button>
-                            <button className="btn-53">
-                                <div className="original">Sing up</div>
-                                <div className="letters">
-
-                                    <span>S</span>
-                                    <span>I</span>
-                                    <span>N</span>
-                                    <span>G U</span>
-                                    <span>P</span>
-                                </div>
-                            </button>
+                            {loginAndRegister}
                         </div>
                     </div>
                 )
