@@ -32,7 +32,7 @@ const Login = () => {
                         />
                     </div>
                     {
-                        errors.email?.type === "required" && <p className='text-red-400 text-sm'>Email is required</p>
+                        errors.email?.type === "required" && <p className='text-red-400 text-xs'>Email is required</p>
                     }
 
                     {/* Password */}
@@ -54,10 +54,10 @@ const Login = () => {
                         </span>
                     </div>
                     {
-                        errors.password?.type === 'password' && <p className='text-red-400 text-sm'>password is required</p>
+                        errors.password?.type === 'password' && <p className='text-red-400 text-xs'>password is required</p>
                     }
                     {
-                        errors.password?.type === "minLength" && <p className='text-red-400 text-sm'>Password must be 6 characters or longer</p>
+                        errors.password?.type === "minLength" && <p className='text-red-400 text-xs'>Password must be 6 characters or longer</p>
                     }
 
                     {/* Remember & Forgot */}

@@ -48,7 +48,7 @@ const Register = () => {
                             />
                         </div>
                         {
-                            errors.name?.type === 'email' && <p className='text-red-400 text-sm'>Username is required</p>
+                            errors.email?.type === 'required' && <p className='text-red-400 text-sm'>Useremail is required</p>
                         }
 
                         {/* Password */}
@@ -56,11 +56,11 @@ const Register = () => {
                             <input
                                 {...register("password", {
                                     required: true,
-                                    pattern: /^[A-Za-z]+$/i,
                                     minLength: 6,
+                                    pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/
                                 })}
                                 type={showPassword ? 'text' : 'password'}
-                                placeholder="Password"
+                                placeholder="Password"            
                                 className="input input-bordered w-full bg-white/20 pr-10 rounded-3xl"
                             />
                             <span onClick={() => setshowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 opacity-70 font-bold">
@@ -74,6 +74,9 @@ const Register = () => {
                         }
                         {
                             errors.password?.type === 'minLength' && <p className='text-red-400 text-sm'>Password must be 6 characters or longer</p>
+                        }
+                        {
+                            errors.password?.type === 'pattern' && <p className='text-red-400 text-sm'>Password must have at least one uppercase, at least one lowercase, at least one number and at least one special characters</p>
                         }
 
                         {/* Remember & Forgot */}
