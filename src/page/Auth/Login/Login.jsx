@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash, FaUser } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import UseAuth from '../../../hooks/UseAuth';
 
 const Login = () => {
     const [showPassword, setshowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const {signInUser} = UseAuth()
+    const navigate = useNavigate()
+    const location = useLocation()
     const handleLogin = (data) => {
-        console.log(data)
+        signInUser(data.email, data.password)
+        .then(result => {
+            console.log(result);
+            navigate(location.state || '/')
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
     return (
         <div>

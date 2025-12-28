@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { FaUser, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
+import UseAuth from '../../../hooks/UseAuth';
 
 const Register = () => {
     const [showPassword, setshowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const { registerUser } = UseAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
     const handleRegistetion = (data) => {
-        console.log(data)
+        registerUser(data.email, data.password)
+            .then(result => {
+                console.log(result.user)
+                navigate(location.state || '/')
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
     return (
         <div>
@@ -60,7 +71,7 @@ const Register = () => {
                                     pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/
                                 })}
                                 type={showPassword ? 'text' : 'password'}
-                                placeholder="Password"            
+                                placeholder="Password"
                                 className="input input-bordered w-full bg-white/20 pr-10 rounded-3xl"
                             />
                             <span onClick={() => setshowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 opacity-70 font-bold">

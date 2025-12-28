@@ -4,12 +4,14 @@ import image from '../../assets/Log & icon/logo.png'
 import { HiXMark } from 'react-icons/hi2';
 import { IoMenuOutline, IoMoonSharp, IoSunny } from 'react-icons/io5';
 import '../ButtonStyle/loginbutton.css'
+import UseAuth from '../../hooks/UseAuth';
 
 const Navbar = ({ theme, setTheme }) => {
     const [open, setOpen] = useState(false);
     const dropDown = useRef(null);
     const [hideNav, setHidenav] = useState(false);
     const lastScrolly = useRef(0);
+    const {user, LogOut} = UseAuth()
     // const [theme, setTheme] = useState("dark")
 
     useEffect(() => {
@@ -74,6 +76,8 @@ const Navbar = ({ theme, setTheme }) => {
         <NavLink to={''} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
     </>
 
+    console.log(user)
+
     const loginAndRegister = <>
         <Link to={'login'} className="btn-53">
             <div className="original">Login</div>
@@ -100,6 +104,20 @@ const Navbar = ({ theme, setTheme }) => {
         </Link>
     </>
 
+    const logout = < >
+        <Link onClick={() => LogOut()} className="btn-53">
+            <div className="original">Log Out</div>
+            <div className="letters">
+                <span>L</span>
+                <span>O</span>
+                <span>G</span>
+                <span>O</span>
+                <span>U</span>
+                <span>T</span>
+            </div>
+        </Link>
+    </>
+
 
 
 
@@ -113,10 +131,10 @@ const Navbar = ({ theme, setTheme }) => {
                 <div className='hidden lg:flex gap-4'>
                     {links}
                 </div>
-                <div className='hidden w-71 lg:justify-end lg:flex gap-2.5'>
-                    {loginAndRegister}
-                </div>
-                <button onClick={toggleTheme} className='absolute lg:right-64 right-14 text-2xl'>
+                {
+                    user ? <div className='hidden lg:flex'>{logout}</div> :<div className='hidden w-71 lg:justify-end lg:flex gap-2.5'>{loginAndRegister}</div>
+                }
+                <button onClick={toggleTheme} className={`${user ? 'absolute lg:right-36 right-14 text-2xl': 'absolute lg:right-64 right-14 text-2xl'}`}>
                     {
                         theme === "dark" ? <IoSunny></IoSunny> : <IoMoonSharp></IoMoonSharp>
                     }
@@ -133,9 +151,9 @@ const Navbar = ({ theme, setTheme }) => {
                         <div className='w-57.5 mb-3 flex flex-col gap-3 text-center'>
                             {links}
                         </div>
-                        <div className='flex gap-2.5'>
-                            {loginAndRegister}
-                        </div>
+                            {
+                                user ? <div>{logout}</div> : <div className='flex gap-2.5'> {loginAndRegister}</div>
+                            }
                     </div>
                 )
             }
