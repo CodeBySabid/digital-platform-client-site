@@ -47,7 +47,6 @@ export const router = createBrowserRouter([
                     <h2 className="text-zinc-900 dark:text-white mt-4">Loading...</h2>
                 </div>
             </div>
-
         )
     },
     {
