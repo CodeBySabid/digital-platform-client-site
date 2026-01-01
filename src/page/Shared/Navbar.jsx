@@ -77,8 +77,6 @@ const Navbar = ({ theme, setTheme }) => {
         <NavLink to={'rider'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
     </>
 
-    console.log(user)
-
     const loginAndRegister = <>
         <Link to={'login'} className="btn-53">
             <div className="original">Login</div>

@@ -20,7 +20,6 @@ const Coverage = () => {
         const district = serviceCenters.find(c => c.district.toLowerCase().includes(location.toLowerCase()))
         if(district){
             const coord = [district.latitude, district.longitude]
-            console.log(coord);
             mapRef.current.flyTo(coord, 14)
         }
     };

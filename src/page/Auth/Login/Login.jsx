@@ -10,11 +10,9 @@ const Login = () => {
     const { signInUser, signinGoogle, user } = UseAuth()
     const navigate = useNavigate()
     const location = useLocation()
-    console.log("longin location", location)
     const handleLogin = (data) => {
         signInUser(data.email, data.password)
-            .then(result => {
-                console.log(result);
+            .then(() => {
                 navigate(location?.state || '/')
             })
             .catch(error => {
@@ -30,8 +28,7 @@ const Login = () => {
 
     const handleGoogleRegistration = () => {
         signinGoogle()
-            .then(result => {
-                console.log(result);
+            .then(() => {
                 navigate(location.state || '/')
             })
     }
