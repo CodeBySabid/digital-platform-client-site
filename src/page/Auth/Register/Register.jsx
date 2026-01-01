@@ -1,19 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { FaUser, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import UseAuth from '../../../hooks/UseAuth';
+import axios from 'axios';
 
 const Register = () => {
     const [showPassword, setshowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { registerUser, signinGoogle, user } = UseAuth();
+    const { registerUser, signinGoogle, user, updateProfileImage } = UseAuth();
     const navigate = useNavigate();
     const location = useLocation();
+
+    useEffect(() => {
+        if(user) {
+            navigate(location?.state || '/')
+        }
+    }, [user, navigate, location])
+
     const handleRegistetion = (data) => {
+        console.log(data)
+        const profileImg = data.photo[0];
         registerUser(data.email, data.password)
             .then(result => {
-                console.log(result.user)
+                console.log(result)
+                const formData = new FormData();
+                formData.append("image", profileImg);
+                const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
+                axios.post(image_API_URL, formData)
+                .then(res => {
+                    console.log("after image upload", res.data.data.url);
+                    const userProfile = {
+                        displayName: data.name,
+                        photoURL : res.data.data.url
+                    }
+                    updateProfileImage(userProfile)
+                    .then()
+                    .catch(error => console.log(error));
+                })
                 navigate(location.state || '/')
             })
             .catch(error => {
@@ -21,10 +45,6 @@ const Register = () => {
             })
     }
     console.log(user)
-
-    if (user) {
-        navigate('/')
-    }
 
     const handleGoogleRegistration = () => {
         signinGoogle()
@@ -45,6 +65,22 @@ const Register = () => {
                     <p className='text-sm text-center'>Register with ZapShift</p>
                     <form onSubmit={handleSubmit(handleRegistetion)} className='mt-5'>
 
+                        {/* User photo */}
+                        <div className="mb-3">
+                            <input
+                                {...register('photo', {
+                                    required: true,
+
+                                })}
+                                type="file"
+                                placeholder="Photo"
+                                className="file-input input-bordered w-full bg-white/20 pr-10 rounded-3xl"
+                            />
+                        {
+                            errors.photo?.type === 'required' && <p className='text-red-400 text-sm mt-0.5'>User photo is required</p>
+                        }
+                        </div>
+
                         {/* Username */}
                         <div className="mb-1">
                             <input
@@ -60,6 +96,8 @@ const Register = () => {
                         {
                             errors.name?.type === 'required' && <p className='text-red-400 text-sm'>Username is required</p>
                         }
+
+                        {/* email field */}
 
                         <div className="mb-1 mt-3">
                             <input
@@ -116,7 +154,7 @@ const Register = () => {
                     </form>
 
                     {/* Register */}
-                    <p className="text-center mt-4 text-sm">Already have an account?<Link to={'/login'} className=" hover:text-[#3251ff] text-[#97b43e] font-semibold cursor-pointer"> Login</Link></p>
+                    <p className="text-center mt-4 text-sm">Already have an account?<Link state={location.state} to={'/login'} className=" hover:text-[#3251ff] text-[#97b43e] font-semibold cursor-pointer"> Login</Link></p>
                     <h1 className='text-2xl my-2 text-center'>or</h1>
                     <button onClick={handleGoogleRegistration} className="btn w-full bg-white text-black border-[#e5e5e5]">
                         <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>

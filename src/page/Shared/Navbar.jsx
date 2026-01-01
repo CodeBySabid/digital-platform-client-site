@@ -5,6 +5,7 @@ import { HiXMark } from 'react-icons/hi2';
 import { IoMenuOutline, IoMoonSharp, IoSunny } from 'react-icons/io5';
 import '../ButtonStyle/loginbutton.css'
 import UseAuth from '../../hooks/UseAuth';
+import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = ({ theme, setTheme }) => {
     const [open, setOpen] = useState(false);
@@ -72,8 +73,8 @@ const Navbar = ({ theme, setTheme }) => {
         <NavLink to={'/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Services</NavLink>
         <NavLink to={'coverage'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Coverage</NavLink>
         <NavLink to={'about'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>About Us</NavLink>
-        <NavLink to={''} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Pricing</NavLink>
-        <NavLink to={''} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
+        <NavLink to={'parcel_send'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Pricing</NavLink>
+        <NavLink to={'rider'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
     </>
 
     console.log(user)
@@ -118,7 +119,11 @@ const Navbar = ({ theme, setTheme }) => {
         </Link>
     </>
 
-
+    const userProfile = <>
+        <Link>
+            <img className="rounded-full w-10 h-10 object-cover cursor-pointer" src={user?.photoURL || <FaUserCircle></FaUserCircle>} alt="" />
+        </Link>
+    </>
 
 
     return (
@@ -132,9 +137,12 @@ const Navbar = ({ theme, setTheme }) => {
                     {links}
                 </div>
                 {
-                    user ? <div className='hidden lg:flex'>{logout}</div> :<div className='hidden w-71 lg:justify-end lg:flex gap-2.5'>{loginAndRegister}</div>
+                    user ? <div className='lg:flex gap-3 hidden'>
+                        {userProfile}
+                        <div className='hidden lg:flex'>{logout}</div>
+                    </div> : <div className='hidden lg:flex gap-2'>{loginAndRegister}</div>
                 }
-                <button onClick={toggleTheme} className={`${user ? 'absolute lg:right-36 right-14 text-2xl': 'absolute lg:right-64 right-14 text-2xl'}`}>
+                <button onClick={toggleTheme} className={`${user ? 'absolute lg:right-48 right-14 text-2xl': 'absolute lg:right-64 right-14 text-2xl'}`}>
                     {
                         theme === "dark" ? <IoSunny></IoSunny> : <IoMoonSharp></IoMoonSharp>
                     }
@@ -147,13 +155,12 @@ const Navbar = ({ theme, setTheme }) => {
             </div>
             {
                 open && (
-                    <div ref={dropDown} className='flex flex-col items-center pb-4'>
-                        <div className='w-57.5 mb-3 flex flex-col gap-3 text-center'>
-                            {links}
-                        </div>
-                            {
-                                user ? <div>{logout}</div> : <div className='flex gap-2.5'> {loginAndRegister}</div>
-                            }
+                    <div ref={dropDown} className='w-full pb-3.5 flex flex-col items-center justify-center gap-3'>
+                        {links}
+                        {
+                            user ? <div className='flex gap-3 items-center'> <div>{userProfile}</div> <div>{logout}</div></div> :
+                                <div className='flex items-center gap-2.5'>{loginAndRegister}</div>
+                        }
                     </div>
                 )
             }

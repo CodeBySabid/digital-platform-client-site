@@ -4,7 +4,7 @@ import image from '../../assets/Log & icon/logo.png'
 const Fotter = () => {
   return (
     <div>
-      <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10 pt-0">
+      <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
         <aside>
           <svg
             width="50"
