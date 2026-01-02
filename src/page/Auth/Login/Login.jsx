@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash, FaUser } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router';
 import UseAuth from '../../../hooks/UseAuth';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Login = () => {
     const [showPassword, setshowPassword] = useState(false);
@@ -13,10 +14,25 @@ const Login = () => {
     const handleLogin = (data) => {
         signInUser(data.email, data.password)
             .then(() => {
+                toast.success('login successful!')
                 navigate(location?.state || '/')
             })
             .catch(error => {
-                console.log(error);
+                if (error.code === "auth/user-not-found") {
+                    toast.error('Email is incorrect!');
+                }
+                else if (error.code === "auth/wrong-password") {
+                    toast.error("Password is incorrect!");
+                }
+                else if (error.code === "auth/invalid-email") {
+                    toast.error("Email format is invalid!");
+                }
+                else if (error.code === "auth/invalid-credential") {
+                    toast.error("Please check your password and email!");
+                }
+                else {
+                    toast.error(error.message);
+                }
             })
     }
 
@@ -103,6 +119,7 @@ const Login = () => {
                     Login with Google
                 </button>
             </div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };

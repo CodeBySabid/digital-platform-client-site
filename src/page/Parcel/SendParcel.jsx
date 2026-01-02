@@ -1,22 +1,74 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
+import Swal from 'sweetalert2';
+import UseAxiosSecure from '../../hooks/UseAxiosSecure';
+import UseAuth from '../../hooks/UseAuth';
 
 const SendParcel = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, control, formState: { errors } } = useForm();
     const serviceCenters = useLoaderData()
     const regionsDuplicate = serviceCenters.map(c => c.region);
     const region = [...new Set(regionsDuplicate)];
-    const senderRegion = watch("senderRegions")
+    const senderRegion = useWatch({ control, name: "senderRegions" })
+    const ReceiverRegion = useWatch({ control, name: "ReceiverRegions" });
+    const axiosSecure = UseAxiosSecure();
+    const {user} = UseAuth();
+    console.log(user)
 
-    const districtByRegion = region => {
+    const districtByRegion = (region) => {
         const regionDistricts = serviceCenters.filter(c => c.region === region);
         const districts = regionDistricts.map(d => d.district);
         return districts;
     }
 
-    const handleSendParel = (data) => {
+
+    const handleParcel = (data) => {
         console.log(data)
+        const isSameDistrict = data.SenderDistrict === data.ReceiverDistrict
+        const isDocument = data.parcelType === "document";
+        const parcelWeight = parseFloat(data.
+            ParcelWeight)
+
+        let cost = 0
+        if (isDocument) {
+            cost = isSameDistrict ? 60 : 80;
+        }
+        else {
+            if (parcelWeight < 3) {
+                cost = isSameDistrict ? 110 : 150;
+            }
+            else {
+                const minCharge = isSameDistrict ? 110 : 150;
+                const extraWeight = parcelWeight - 3;
+                const extraCharge = isSameDistrict ? extraWeight * 40 : extraWeight * 40 + 40
+                cost = minCharge + extraCharge
+            }
+        }
+        console.log(cost)
+        Swal.fire({
+            title: "Agree with the Cost?",
+            text: `You will be charged ${cost} !`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "I agree!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.post('parcels', data)
+                .then(res => {
+                    console.log(res.data)
+                })
+
+
+                // Swal.fire({
+                //     title: "Deleted!",
+                //     text: "Your file has been deleted.",
+                //     icon: "success"
+                // });
+            }
+        });
     }
 
     return (
@@ -31,7 +83,7 @@ const SendParcel = () => {
                     </p>
 
                     <hr className='border-gray-500 mb-2' />
-                    <form onSubmit={handleSubmit(handleSendParel)}>
+                    <form onSubmit={handleSubmit(handleParcel)}>
 
                         {/* Document Type */}
                         <div className="flex gap-6 mb-6">
@@ -88,32 +140,21 @@ const SendParcel = () => {
                                 {/* Sender Name */}
                                 <div className="space-y-3">
                                     <div className="flex flex-col items-start">
-                                        <label>Sender Name</label>
+                                        <label className='label'>Sender Name</label>
                                         <input
-                                            {...register("SenderName", { required: true })} type='text' className="input outline-none w-full" placeholder="Sender Name" />
+                                            {...register("SenderName", { required: true })} defaultValue={user?.displayName} type='text' className="input outline-none w-full" placeholder="Sender Name" />
                                         {
                                             errors.SenderName?.type === 'required' && <p className='text-red-600/80 text-sm'>Sender Name is required</p>
                                         }
                                     </div>
 
-                                    {/* Sender Emali */}
+                                    {/* Sender Email */}
                                     <div className="flex flex-col items-start">
-                                        <label>Sender Emali</label>
+                                        <label className='label'>Sender Email</label>
                                         <input
-                                            {...register("Senderemail", { required: true })} type='email' className="input outline-none w-full" placeholder="Sender Email" />
+                                            {...register("SenderEmail", { required: true })} type='email' defaultValue={user?.email} className="input outline-none w-full" placeholder="Sender Email" />
                                         {
-                                            errors.Senderemail?.type === 'required' && <p className='text-red-600/80 text-sm'>Sender Email is required</p>
-                                        }
-                                    </div>
-
-                                    {/* Sender Address */}
-                                    <div className="flex flex-col items-start">
-                                        <label className='label'>Address</label>
-                                        <input
-                                            {...register("Address", { required: true })} className="input outline-none w-full" placeholder="Address"
-                                            type='text' />
-                                        {
-                                            errors.Address?.type === 'required' && <p className='text-red-600/80 text-sm'>Address is required</p>
+                                            errors.SenderEmail?.type === 'required' && <p className='text-red-600/80 text-sm'>Sender Email is required</p>
                                         }
                                     </div>
 
@@ -130,7 +171,7 @@ const SendParcel = () => {
 
                                     {/* Sender region */}
                                     <div className="flex flex-col items-start">
-                                        <label className=''>Select your Region</label>
+                                        <label className='label'>Select your Region</label>
                                         <select
                                             {...register("senderRegions", { required: true })} className="input outline-none w-full">
                                             <option value=''>Select your Region</option>
@@ -139,22 +180,33 @@ const SendParcel = () => {
                                             }
                                         </select>
                                         {
-                                            errors.SenderRegions?.type === 'required' && <p className='text-red-600/80 text-sm'>Select your Region is required</p>
+                                            errors.senderRegions?.type === 'required' && <p className='text-red-600/80 text-sm'>Select your Region is required</p>
                                         }
                                     </div>
 
                                     {/* Sender District */}
                                     <div className="flex flex-col items-start">
-                                        <label className=''>Select your District</label>
+                                        <label className='label'>Select your District</label>
                                         <select
-                                            {...register("SelectyourDistrict", { required: true })} className="input outline-none w-full">
+                                            {...register("SenderDistrict", { required: true })} className="input outline-none w-full">
                                             <option value=''>Select your District</option>
                                             {
                                                 senderRegion && districtByRegion(senderRegion).map((r, index) => <option value={r} key={index}>{r}</option>)
                                             }
                                         </select>
                                         {
-                                            errors.SelectyourDistrict?.type === 'required' && <p className='text-red-600/80 text-sm'>Select your District is required</p>
+                                            errors.SenderDistrict?.type === 'required' && <p className='text-red-600/80 text-sm'>Select your District is required</p>
+                                        }
+                                    </div>
+
+                                    {/* Sender Address */}
+                                    <div className="flex flex-col items-start">
+                                        <label className='label'>Address</label>
+                                        <input
+                                            {...register("Address", { required: true })} className="input outline-none w-full" placeholder="Address"
+                                            type='text' />
+                                        {
+                                            errors.Address?.type === 'required' && <p className='text-red-600/80 text-sm'>Address is required</p>
                                         }
                                     </div>
 
@@ -182,32 +234,21 @@ const SendParcel = () => {
                                     <div className="flex flex-col items-start">
                                         <label className='label'>Receiver Name</label>
                                         <input
-                                            {...register("ReceiverName", { required: true })} className="input outline-none w-full" placeholder="Receiver Name" 
-                                            type='text'/>
+                                            {...register("ReceiverName", { required: true })} className="input outline-none w-full" placeholder="Receiver Name"
+                                            type='text' />
                                         {
                                             errors.ReceiverName?.type === 'required' && <p className='text-red-600/80 text-sm'>Receiver Name is required</p>
                                         }
                                     </div>
-                                    
+
                                     {/* Receiver Email */}
                                     <div className="flex flex-col items-start">
                                         <label className='label'>Receiver Email</label>
                                         <input
-                                            {...register("Receiveremail", { required: true })} className="input outline-none w-full" placeholder="Receiver Email" 
-                                            type='email'/>
+                                            {...register("receiverEmail", { required: true })} className="input outline-none w-full" placeholder="Receiver Email"
+                                            type='email' />
                                         {
-                                            errors.Receiveremail?.type === 'required' && <p className='text-red-600/80 text-sm'>Receiver Email is required</p>
-                                        }
-                                    </div>
-
-                                    {/* Receiver Address */}
-                                    <div className="flex flex-col items-start">
-                                        <label className='label'>Address</label>
-                                        <input
-                                            {...register("R_Address", { required: true })} className="input outline-none w-full" placeholder="Address"
-                                            type='text' />
-                                        {
-                                            errors.R_Address?.type === 'required' && <p className='text-red-600/80 text-sm'>Address is required</p>
+                                            errors.receiverEmail?.type === 'required' && <p className='text-red-600/80 text-sm'>Receiver Email is required</p>
                                         }
                                     </div>
 
@@ -222,16 +263,44 @@ const SendParcel = () => {
                                         }
                                     </div>
 
-                                    {/* Receiver District */}
+                                    {/* Receiver region */}
                                     <div className="flex flex-col items-start">
-                                        <label className='label'>Select your District</label>
+                                        <label className='label'>Select Receiver Region</label>
                                         <select
-                                            {...register("SelectDistrict", { required: true })} className="input outline-none w-full">
-                                            <option value=''>Select your District</option>
-                                            <option>Madaripur</option>
+                                            {...register("ReceiverRegions", { required: true })} className="input outline-none w-full">
+                                            <option value=''>Select Receiver Region</option>
+                                            {
+                                                region.map((r, index) => <option key={index} value={r}>{r}</option>)
+                                            }
                                         </select>
                                         {
-                                            errors.SelectDistrict?.type === 'required' && <p className='text-red-600/80 text-sm'>Select your District is required</p>
+                                            errors.ReceiverRegions?.type === 'required' && <p className='text-red-600/80 text-sm'>Receiver Region is required</p>
+                                        }
+                                    </div>
+
+                                    {/* Receiver District */}
+                                    <div className="flex flex-col items-start">
+                                        <label className='label'>Select Receiver District</label>
+                                        <select
+                                            {...register("ReceiverDistrict", { required: true })} className="input outline-none w-full">
+                                            <option value=''>Select Receiver District</option>
+                                            {
+                                                ReceiverRegion && districtByRegion(ReceiverRegion).map((re, index) => <option key={index} value={re}>{re}</option>)
+                                            }
+                                        </select>
+                                        {
+                                            errors.ReceiverDistrict?.type === 'required' && <p className='text-red-600/80 text-sm'>Select Receiver District is required</p>
+                                        }
+                                    </div>
+
+                                    {/* Receiver Address */}
+                                    <div className="flex flex-col items-start">
+                                        <label className='label'>Address</label>
+                                        <input
+                                            {...register("ReceiverAddress", { required: true })} className="input outline-none w-full" placeholder="Address"
+                                            type='text' />
+                                        {
+                                            errors.ReceiverAddress?.type === 'required' && <p className='text-red-600/80 text-sm'>Address is required</p>
                                         }
                                     </div>
 
