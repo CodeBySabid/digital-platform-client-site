@@ -12,7 +12,7 @@ const Navbar = ({ theme, setTheme }) => {
     const dropDown = useRef(null);
     const [hideNav, setHidenav] = useState(false);
     const lastScrolly = useRef(0);
-    const {user, LogOut} = UseAuth()
+    const { user, LogOut } = UseAuth()
     // const [theme, setTheme] = useState("dark")
 
     useEffect(() => {
@@ -75,6 +75,12 @@ const Navbar = ({ theme, setTheme }) => {
         <NavLink to={'about'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>About Us</NavLink>
         <NavLink to={'parcel_send'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Pricing</NavLink>
         <NavLink to={'rider'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Be a Rider</NavLink>
+        {
+            user && <>
+                <NavLink to={'/dashboard'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Dashboard</NavLink>
+                <NavLink to={'/dashboard/my-parcels'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>My Parcels</NavLink>
+            </>
+        }
     </>
 
     const loginAndRegister = <>
@@ -127,11 +133,11 @@ const Navbar = ({ theme, setTheme }) => {
     return (
         <div className={`fixed top-0 left-1/2 transform -translate-x-1/2 w-full z-50 transition-transform duration-300 ${hideNav ? "-translate-y-full" : "translate-y-0"} bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl border-b border-white/10 shadow-lg `}>
             <div className='flex justify-between px-4 py-2 items-center'>
-                <Link className='relative w-37'>
+                <Link to={'/'} className='relative w-37'>
                     <img className='max-sm:h-11' src={image} alt="" />
                     <h1 className='absolute font-bold -bottom-1 left-5  text-3xl max-sm:text-2xl'>ZapShift</h1>
                 </Link>
-                <div className='hidden lg:flex gap-4'>
+                <div className='hidden lg:flex items-center gap-4'>
                     {links}
                 </div>
                 {
@@ -140,7 +146,7 @@ const Navbar = ({ theme, setTheme }) => {
                         <div className='hidden lg:flex'>{logout}</div>
                     </div> : <div className='hidden lg:flex gap-2'>{loginAndRegister}</div>
                 }
-                <button onClick={toggleTheme} className={`${user ? 'absolute lg:right-48 right-14 text-2xl': 'absolute lg:right-64 right-14 text-2xl'}`}>
+                <button onClick={toggleTheme} className={`${user ? 'absolute lg:right-48 right-14 text-2xl' : 'absolute lg:right-64 right-14 text-2xl'}`}>
                     {
                         theme === "dark" ? <IoSunny></IoSunny> : <IoMoonSharp></IoMoonSharp>
                     }
