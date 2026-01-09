@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import UseAxiosSecure from '../../hooks/UseAxiosSecure';
 import UseAuth from '../../hooks/UseAuth';
@@ -13,7 +13,8 @@ const SendParcel = () => {
     const senderRegion = useWatch({ control, name: "senderRegions" })
     const ReceiverRegion = useWatch({ control, name: "ReceiverRegions" });
     const axiosSecure = UseAxiosSecure();
-    const {user} = UseAuth();
+    const { user } = UseAuth();
+    const navigator = useNavigate()
     console.log(user)
 
     const districtByRegion = (region) => {
@@ -54,20 +55,22 @@ const SendParcel = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "I agree!"
+            confirmButtonText: "Confirm!"
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure.post('parcels', data)
-                .then(res => {
-                    console.log(res.data)
-                })
-
-
-                // Swal.fire({
-                //     title: "Deleted!",
-                //     text: "Your file has been deleted.",
-                //     icon: "success"
-                // });
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                title: "Parcel has created. Please Pay!",
+                                icon: "success",
+                                showCancelButton: false,
+                                timer: 2000,
+                            });
+                            navigator('/dashboard/all_delivery')
+                        }
+                    })
             }
         });
     }

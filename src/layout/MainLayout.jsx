@@ -5,7 +5,6 @@ import Navbar from '../page/Shared/Navbar';
 
 const MainLayout = () => {
     const [theme, setTheme] = useState('dark');
-
     return (
         <div>
             <Navbar theme={theme} setTheme={setTheme} />

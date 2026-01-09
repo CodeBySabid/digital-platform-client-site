@@ -13,7 +13,7 @@ const AllDeliveries = () => {
     const { data: parcels = [], refetch } = useQuery({
         queryKey: ['myParcels', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/parcels?.email${user.email}`)
+            const res = await axiosSecure.get(`/parcels?email=${user.email}`)
             return res.data
         }
     })
@@ -31,19 +31,32 @@ const AllDeliveries = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/parcels/${id}`)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.deletedCount) {
-                        refetch();
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your parcel request has been deleted.",
-                            icon: "success"
-                        });
-                    }
-                })
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.deletedCount) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your parcel request has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
             }
         });
+    }
+
+
+    const handlePayment = async(parcel) => {
+        const paymentInfo = {
+            cost: parcel.cost,
+            parcelId : parcel._id,
+            senderEmail: parcel.SenderEmail,
+            parcelName: parcel.parcelName,
+        }
+        const res = await axiosSecure.post('/payment-checkout-session', paymentInfo);
+        console.log(res.data.url);
+        window.location.href = res.data.url;
     }
 
 
@@ -105,7 +118,10 @@ const AllDeliveries = () => {
                                             <td className='flex flex-col'><p>{parcel.SenderName}</p> {parcel.ReceiverRegions} , {parcel.ReceiverDistrict}</td>
                                             <td>Paid Return</td>
                                             <td>{parcel.cost}</td>
-                                            <td>{parcel.paymentStatus === 'paid' ? <span className='text-green-900 bg-green-300/70 p-2 rounded'>Paid</span> : <Link to={`/dashboard/payment/${parcel._id}`} className='btn bg-[#CAEB66] text-black'>Pay</Link>}</td>
+                                            <td>{parcel.paymentStatus === 'paid' ? <span className='text-green-900 bg-green-300/70 p-2 rounded'>Paid</span> :
+                                                <button onClick={() => handlePayment(parcel)} className='btn bg-[#CAEB66] text-black'>Pay</button>
+                                                // <Link to={`/dashboard/payment/${parcel._id}`} className='btn bg-[#CAEB66] text-black'>Pay</Link>
+                                            }</td>
                                             <td className='flex gap-2'>
                                                 <button className='btn bg-[#94C6CB]'>View</button>
                                                 <button onClick={() => handleDelete(parcel._id)} className='btn bg-[#E83330]'>Delete</button>

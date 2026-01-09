@@ -41,14 +41,14 @@ const DashboardLayout = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/dashboard/my-parcels'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+                                <Link to={'/dashboard/my-parcels'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="All Deliveries">
                                     {/* Home icon */}
                                     <CiDeliveryTruck size={20} />
                                     <span className="is-drawer-close:hidden">All Deliveries</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/dashboard/all_delivery'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+                                <Link to={'/dashboard/all_delivery'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My parcels">
                                     {/* Home icon */}
                                     <LiaShippingFastSolid size={20} />
                                     <span className="is-drawer-close:hidden">My parcels</span>

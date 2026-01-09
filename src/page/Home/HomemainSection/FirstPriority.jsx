@@ -6,7 +6,7 @@ import customer_top from '../../../assets/Log & icon/customer-top.png'
 const FirstPriority = () => {
     return (
         <div>
-            <div className=" mt-15 bg-base-100 flex items-center justify-center px-4">
+            <div className=" mt-15 flex items-center justify-center px-4">
                 {/* Banner Container */}
                 <div className="w-full relative max-w-6xl rounded-2xl bg-linear-to-r from-[#063B3E] to-[#0A4F52] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
                     <img className='absolute top-0 --tw-translate-x: -50% z-0 max-lg:max-w-[90vw]' src={merchant} alt="" />
