@@ -3,6 +3,7 @@ import { Link, Outlet } from 'react-router';
 import { CiDeliveryTruck } from "react-icons/ci";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import image from '../assets/Log & icon/logo.png'
+import { TbHistory } from 'react-icons/tb';
 
 
 const DashboardLayout = () => {
@@ -52,6 +53,13 @@ const DashboardLayout = () => {
                                     {/* Home icon */}
                                     <LiaShippingFastSolid size={20} />
                                     <span className="is-drawer-close:hidden">My parcels</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/dashboard/paymenthistory'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
+                                    {/* Home icon */}
+                                    <TbHistory size={20} />
+                                    <span className="is-drawer-close:hidden">Payment History</span>
                                 </Link>
                             </li>
 

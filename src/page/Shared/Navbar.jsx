@@ -14,6 +14,7 @@ const Navbar = ({ theme, setTheme }) => {
     const lastScrolly = useRef(0);
     const { user, LogOut } = UseAuth()
     // const [theme, setTheme] = useState("dark")
+    console.log(user)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -124,9 +125,21 @@ const Navbar = ({ theme, setTheme }) => {
     </>
 
     const userProfile = <>
-        <Link>
+        <div className="relative group">
+            {user ? (
+              <Link to={'/myprofile'}>
+                <img className="rounded-full w-11.25 h-11.25 object-cover cursor-pointer" src={user?.photoURL || <FaUserCircle></FaUserCircle>} alt="profile" />
+              </Link>
+            ) : ''}
+            {user && (
+              <span className="absolute left-1/2 -bottom-10 -translate-x-1/2 bg-gray-800 text-white text-sm px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                {user.displayName}
+              </span>
+            )}
+          </div>
+        {/* <Link>
             <img className="rounded-full w-10 h-10 object-cover cursor-pointer" src={user?.photoURL || <FaUserCircle></FaUserCircle>} alt="" />
-        </Link>
+        </Link> */}
     </>
 
 
