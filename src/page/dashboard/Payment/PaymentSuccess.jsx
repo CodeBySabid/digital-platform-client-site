@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 
@@ -34,6 +34,7 @@ const PaymentSuccess = () => {
         </h1>
         <p>Your TransactionId: {paymentInfo?.transactionId}</p>
         <p>Your TrackingId: {paymentInfo?.trackingId}</p>
+        <Link to={'/dashboard/paymenthistory'} className="btn bg-green-500 mt-2.5">Payment History</Link>
       </div>
     </div>
   );

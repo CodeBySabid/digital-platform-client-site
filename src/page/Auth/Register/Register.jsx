@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
-import { FaUser, FaEyeSlash, FaEye } from "react-icons/fa";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import UseAuth from '../../../hooks/UseAuth';
 import axios from 'axios';
+import UseAxiosSecure from '../../../hooks/UseAxiosSecure';
 
 const Register = () => {
     const [showPassword, setshowPassword] = useState(false);
@@ -11,12 +12,14 @@ const Register = () => {
     const { registerUser, signinGoogle, user, updateProfileImage } = UseAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const from = location.state?.from || '/';
+    const axiosSecure = UseAxiosSecure();
 
     useEffect(() => {
         if(user) {
-            navigate(location?.state || '/')
+            navigate(from, {replace: true})
         }
-    }, [user, navigate, location])
+    }, [user, navigate, from])
 
     const handleRegistetion = (data) => {
         const profileImg = data.photo[0];
@@ -27,15 +30,27 @@ const Register = () => {
                 const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
                 axios.post(image_API_URL, formData)
                 .then(res => {
+                    const photoURL = res.data.data.url;
+                    const userInfo = {
+                        email : data.email,
+                        name: data.name,
+                        photoURL : photoURL,
+                    }
+                    axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        if(res.data.insertedId){
+                            console.log('user created in the data base')
+                        }
+                    })
                     const userProfile = {
                         displayName: data.name,
-                        photoURL : res.data.data.url
+                        photoURL : photoURL
                     }
                     updateProfileImage(userProfile)
                     .then()
                     .catch(error => console.log(error));
                 })
-                navigate(location.state || '/')
+                navigate(from, {replace: true})
             })
             .catch(error => {
                 console.log(error)
@@ -45,7 +60,7 @@ const Register = () => {
     const handleGoogleRegistration = () => {
         signinGoogle()
             .then(() => {
-                navigate(location.state || '/')
+                navigate(from, {replace: true})
             })
     }
 

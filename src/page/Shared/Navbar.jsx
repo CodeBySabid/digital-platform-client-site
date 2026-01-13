@@ -79,7 +79,7 @@ const Navbar = ({ theme, setTheme }) => {
         {
             user && <>
                 <NavLink to={'/dashboard'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>Dashboard</NavLink>
-                <NavLink to={'/dashboard/my-parcels'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>My Parcels</NavLink>
+                <NavLink to={'/dashboard/all_delivery'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "text-[#606060] rounded-4xl bg-[#CAEB66] py-1.5 px-3 font-semibold" : "hover:text-blue-700"}>My Parcels</NavLink>
             </>
         }
     </>
