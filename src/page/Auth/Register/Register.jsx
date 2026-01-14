@@ -16,8 +16,8 @@ const Register = () => {
     const axiosSecure = UseAxiosSecure();
 
     useEffect(() => {
-        if(user) {
-            navigate(from, {replace: true})
+        if (user) {
+            navigate(from, { replace: true })
         }
     }, [user, navigate, from])
 
@@ -29,28 +29,28 @@ const Register = () => {
                 formData.append("image", profileImg);
                 const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
                 axios.post(image_API_URL, formData)
-                .then(res => {
-                    const photoURL = res.data.data.url;
-                    const userInfo = {
-                        email : data.email,
-                        name: data.name,
-                        photoURL : photoURL,
-                    }
-                    axiosSecure.post('/users', userInfo)
                     .then(res => {
-                        if(res.data.insertedId){
-                            console.log('user created in the data base')
+                        const photoURL = res.data.data.url;
+                        const userInfo = {
+                            email: data.email,
+                            name: data.name,
+                            photoURL: photoURL,
                         }
+                        axiosSecure.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user created in the data base')
+                                }
+                            })
+                        const userProfile = {
+                            displayName: data.name,
+                            photoURL: photoURL
+                        }
+                        updateProfileImage(userProfile)
+                            .then()
+                            .catch(error => console.log(error));
                     })
-                    const userProfile = {
-                        displayName: data.name,
-                        photoURL : photoURL
-                    }
-                    updateProfileImage(userProfile)
-                    .then()
-                    .catch(error => console.log(error));
-                })
-                navigate(from, {replace: true})
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.log(error)
@@ -59,8 +59,21 @@ const Register = () => {
 
     const handleGoogleRegistration = () => {
         signinGoogle()
-            .then(() => {
-                navigate(from, {replace: true})
+            .then((result) => {
+                navigate(from, { replace: true })
+                const userInfo = {
+                    email: result.user.email,
+                    name: result.user.name,
+                    photoURL: result.user.photoURL,
+                }
+                axiosSecure.post(`/users`, userInfo)
+                    .then(res => {
+                        console.log('user data has been stored', res.data)
+                        navigate(from, { replace: true })
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
     }
 
@@ -86,9 +99,9 @@ const Register = () => {
                                 placeholder="Photo"
                                 className="file-input input-bordered w-full bg-white/20 pr-10 rounded-3xl"
                             />
-                        {
-                            errors.photo?.type === 'required' && <p className='text-red-400 text-sm mt-0.5'>User photo is required</p>
-                        }
+                            {
+                                errors.photo?.type === 'required' && <p className='text-red-400 text-sm mt-0.5'>User photo is required</p>
+                            }
                         </div>
 
                         {/* Username */}
