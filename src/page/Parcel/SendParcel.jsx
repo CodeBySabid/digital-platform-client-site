@@ -15,7 +15,6 @@ const SendParcel = () => {
     const axiosSecure = UseAxiosSecure();
     const { user } = UseAuth();
     const navigator = useNavigate()
-    console.log(user)
 
     const districtByRegion = (region) => {
         const regionDistricts = serviceCenters.filter(c => c.region === region);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router';
 import { CiDeliveryTruck } from "react-icons/ci";
+import { FaMotorcycle } from "react-icons/fa";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import image from '../assets/Log & icon/logo.png'
 import { TbHistory } from 'react-icons/tb';
@@ -43,23 +44,30 @@ const DashboardLayout = () => {
                             </li>
                             <li>
                                 <Link to={'/dashboard/my-parcels'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="All Deliveries">
-                                    {/* Home icon */}
+                                    {/* Delivery icon */}
                                     <CiDeliveryTruck size={20} />
                                     <span className="is-drawer-close:hidden">All Deliveries</span>
                                 </Link>
                             </li>
                             <li>
                                 <Link to={'/dashboard/all_delivery'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My parcels">
-                                    {/* Home icon */}
+                                    {/* Shipping icon */}
                                     <LiaShippingFastSolid size={20} />
                                     <span className="is-drawer-close:hidden">My parcels</span>
                                 </Link>
                             </li>
                             <li>
                                 <Link to={'/dashboard/paymenthistory'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
-                                    {/* Home icon */}
+                                    {/* History icon */}
                                     <TbHistory size={20} />
                                     <span className="is-drawer-close:hidden">Payment History</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/dashboard/approveriders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
+                                    {/* Motorcycle icon */}
+                                    <FaMotorcycle size={20} />
+                                    <span className="is-drawer-close:hidden">Approve Riders</span>
                                 </Link>
                             </li>
 

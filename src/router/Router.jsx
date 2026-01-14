@@ -17,6 +17,7 @@ import Payment from "../page/dashboard/Payment/Payment";
 import PaymentSuccess from "../page/dashboard/Payment/PaymentSuccess";
 import PaymentCancelled from "../page/dashboard/Payment/PaymentCancelled";
 import PaymentHistory from "../page/dashboard/UserDashboard/PaymentHistory";
+import ApproveRiders from "../page/dashboard/AdminDashboard/ApproveRiders";
 
 export const router = createBrowserRouter([
     {
@@ -39,7 +40,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/rider',
-                element: <PrivateRouter><Rider></Rider></PrivateRouter>
+                element: <PrivateRouter><Rider></Rider></PrivateRouter>,
+                loader: () => fetch('/serviceCenters.json').then(res => res.json()),
             },
             {
                 path: "about",
@@ -62,7 +64,7 @@ export const router = createBrowserRouter([
                 <div>
                     <div
                         className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-yellow-500 mx-auto"
-                    ></div>
+                        ></div>
                     <h2 className="text-zinc-900 dark:text-white mt-4">Loading...</h2>
                 </div>
             </div>
@@ -103,7 +105,11 @@ export const router = createBrowserRouter([
                 Component: PaymentSuccess,
             },
             {
-                path: 'payment-cancelled',
+                path: 'approveriders',
+                element: <ApproveRiders></ApproveRiders>,
+            },
+            {
+                path: 'payment-canceled',
                 Component: PaymentCancelled,
             },
             {

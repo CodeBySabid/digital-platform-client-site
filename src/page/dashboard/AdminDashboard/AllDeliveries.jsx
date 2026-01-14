@@ -18,6 +18,14 @@ const AllDeliveries = () => {
         }
     })
 
+    const {data: payment = []} = useQuery({
+        queryKey: ['payments', user.email],
+        queryFn: async() => {
+            const res = await axiosSecure.get(`/payments?email=${user.email}`)
+            return res.data
+        }
+    })
+
     const handleDelete = id => {
         console.log(id)
         Swal.fire({
@@ -90,7 +98,7 @@ const AllDeliveries = () => {
                             </div>
                             <div>
                                 <h3>Paid Return</h3>
-                                <h2 className='text-3xl font-bold'>{parcels.length}</h2>
+                                <h2 className='text-3xl font-bold'>{payment.length}</h2>
                             </div>
                         </div>
                     </div>

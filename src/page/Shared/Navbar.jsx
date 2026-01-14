@@ -14,7 +14,6 @@ const Navbar = ({ theme, setTheme }) => {
     const lastScrolly = useRef(0);
     const { user, LogOut } = UseAuth()
     // const [theme, setTheme] = useState("dark")
-    console.log(user)
 
     useEffect(() => {
         const handleScroll = () => {
