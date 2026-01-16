@@ -1,6 +1,7 @@
-
+import React from 'react';
 import UseAxiosSecure from '../../../hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
 import { FaUserShield } from 'react-icons/fa';
 import { FiShieldOff } from "react-icons/fi";
 import { MdDeleteForever } from "react-icons/md";
@@ -9,13 +10,68 @@ import { MdDeleteForever } from "react-icons/md";
 
 const UsersManagement = () => {
     const axiosSecure = UseAxiosSecure();
-    const { data: user = [], } = useQuery({
+    const { data: user = [], refetch } = useQuery({
         queryKey: ['user', 'email'],
         queryFn: (async () => {
             const res = await axiosSecure.get(`/users`);
             return res.data;
         })
     })
+
+    const handleMakeUser = (id, role, name) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: `Do you want to make ${name} an ${role}?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes i agree!"
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    const roleInfo = {role};
+                    axiosSecure.patch(`/users/${id}`, roleInfo)
+                        .then(res => {
+                            if(res.data.modifiedCount){
+                                refetch();
+                                Swal.fire({
+                                title: "Success!",
+                                text: `${name} has been successfully made an ${role}.`,
+                                icon: "success"
+                            });
+                            }
+                        })
+                }
+            })
+    }
+
+    const deleteUser = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        })
+        .then(result => {
+            if(result.isConfirmed) {
+                axiosSecure.delete(`/users/${id}`)
+                    .then(res => {
+                        refetch();
+                        if (res.data.deleteCount) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your parcel request has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        })
+    }
     return (
         <div>
             <h2 className='text-4xl'>Manage Users{user.length}</h2>
@@ -56,9 +112,9 @@ const UsersManagement = () => {
                                 <td>{u.role}</td>
                                 <td>
                                     {
-                                        u.role === "user" ? <button><FaUserShield className='btn' size={28}></FaUserShield></button> : <button><FiShieldOff size={28}></FiShieldOff></button>
+                                        u.role === "user" ? <button><FaUserShield onClick={() => handleMakeUser(u._id, 'Admin', u.name)} className='btn' size={28}></FaUserShield></button> : <button onClick={() => handleMakeUser(u._id, 'user', u.name)} className='btn'><FiShieldOff size={28}></FiShieldOff></button>
                                     }
-                                    <button className='mx-1 btn'><MdDeleteForever size={28} /></button>
+                                    <button onClick={() => deleteUser(u._id)} className='mx-1 btn'><MdDeleteForever size={28} /></button>
                                 </td>
                             </tr>)
                         }
