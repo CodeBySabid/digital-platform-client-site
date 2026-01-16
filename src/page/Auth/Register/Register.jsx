@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import UseAuth from '../../../hooks/UseAuth';
 import axios from 'axios';
 import UseAxiosSecure from '../../../hooks/UseAxiosSecure';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Register = () => {
     const [showPassword, setshowPassword] = useState(false);
@@ -49,6 +50,13 @@ const Register = () => {
                         updateProfileImage(userProfile)
                             .then()
                             .catch(error => console.log(error));
+                    })
+                    .catch(error => {
+                        if (error.code === 'auth/email-already-in-use') {
+                            toast.error('This email is already exists please log in')
+                        } else {
+                            console.log(error);
+                        }
                     })
                 navigate(from, { replace: true })
             })
@@ -185,6 +193,7 @@ const Register = () => {
                     </button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

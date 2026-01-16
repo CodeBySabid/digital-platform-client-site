@@ -51,7 +51,7 @@ const Login = () => {
                 navigate(from, { replace: true })
                 const userInfo = {
                     email: result.user.email,
-                    name: result.user.name,
+                    name: result.user.displayName,
                     photoURL: result.user.photoURL,
                 }
                 axiosSecure.post('/users', userInfo)

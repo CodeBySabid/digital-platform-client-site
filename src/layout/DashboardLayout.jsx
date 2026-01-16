@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router';
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaMotorcycle } from "react-icons/fa";
+import { FaMotorcycle, FaUsersCog } from "react-icons/fa";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import image from '../assets/Log & icon/logo.png'
 import { TbHistory } from 'react-icons/tb';
@@ -68,6 +68,13 @@ const DashboardLayout = () => {
                                     {/* Motorcycle icon */}
                                     <FaMotorcycle size={20} />
                                     <span className="is-drawer-close:hidden">Approve Riders</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/dashboard/users-management'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management">
+                                    {/* Motorcycle icon */}
+                                    <FaUsersCog size={20} />
+                                    <span className="is-drawer-close:hidden">Users Management</span>
                                 </Link>
                             </li>
 

@@ -16,7 +16,35 @@ const ApproveRiders = () => {
         }
     })
 
-    const handleApproval = (id) => {
+    const updateRidersStatus = (rider, status ) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be approved this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Approved!"
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    const updateInfo = { status , email: rider.email}
+                    axiosSecure.patch(`/riders/${rider._id}`, updateInfo)
+                        .then(res => {
+                            if (res.data.modifiedCount) {
+                                refetch();
+                                Swal.fire({
+                                    title: "Success!",
+                                    text: "Rider has been Approved.",
+                                    icon: "success"
+                                });
+                            }
+                        })
+                }
+            })
+    }
+
+    const handleRequsetdelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -42,7 +70,7 @@ const ApproveRiders = () => {
                 }
             })
     }
-
+    
     return (
         <div>
             <div className="overflow-x-auto">
@@ -67,13 +95,13 @@ const ApproveRiders = () => {
                                     <td>{rider.name}</td>
                                     <td>{rider.email}</td>
                                     <td>{rider.createAt}</td>
-                                    <td>{rider.status}</td>
+                                    <td className={`${rider.status === 'Approved' ? 'text-green-600 font-bold' : "text-red-500"}`}>{rider.status}</td>
                                     <td>{rider.Region}</td>
                                     <td>{rider.district}</td>
                                     <td>
-                                        <button onClick={() => handleApproval(rider._id)} className='btn max-h-6 bg-green-600'><FaUserCheck /></button>
-                                        <button className='btn max-h-6 bg-red-600 mx-1'><IoPersonRemoveSharp /></button>
-                                        <button className='btn max-h-6 bg-red-600'><FaTrashAlt /></button>
+                                        <button onClick={() => updateRidersStatus(rider, "Approved")} className='btn max-h-6 bg-green-600'><FaUserCheck /></button>
+                                        <button onClick={() => updateRidersStatus(rider, "Rejected")} className='btn max-h-6 bg-red-600 mx-1'><IoPersonRemoveSharp /></button>
+                                        <button onClick={() => handleRequsetdelete(rider._id)} className='btn max-h-6 bg-red-600'><FaTrashAlt /></button>
                                     </td>
                                 </tr>)
                         }
