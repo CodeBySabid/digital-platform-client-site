@@ -5,9 +5,11 @@ import { FaMotorcycle, FaUsersCog } from "react-icons/fa";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import image from '../assets/Log & icon/logo.png'
 import { TbHistory } from 'react-icons/tb';
+import useRole from '../hooks/useRole';
 
 
 const DashboardLayout = () => {
+    const { role } = useRole();
     return (
         <div className='w-full min-h-screen flex justify-center'>
             <div className="drawer max-w-425 lg:drawer-open">
@@ -63,20 +65,24 @@ const DashboardLayout = () => {
                                     <span className="is-drawer-close:hidden">Payment History</span>
                                 </Link>
                             </li>
-                            <li>
-                                <Link to={'/dashboard/approveriders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
-                                    {/* Motorcycle icon */}
-                                    <FaMotorcycle size={20} />
-                                    <span className="is-drawer-close:hidden">Approve Riders</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={'/dashboard/users-management'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management">
-                                    {/* Motorcycle icon */}
-                                    <FaUsersCog size={20} />
-                                    <span className="is-drawer-close:hidden">Users Management</span>
-                                </Link>
-                            </li>
+                            {
+                                role === 'Admin' && <>
+                                    <li>
+                                        <Link to={'/dashboard/approveriders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
+                                            {/* Motorcycle icon */}
+                                            <FaMotorcycle size={20} />
+                                            <span className="is-drawer-close:hidden">Approve Riders</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={'/dashboard/users-management'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management">
+                                            {/* Motorcycle icon */}
+                                            <FaUsersCog size={20} />
+                                            <span className="is-drawer-close:hidden">Users Management</span>
+                                        </Link>
+                                    </li>
+                                </>
+                            }
 
                             {/* List item */}
                             <li>

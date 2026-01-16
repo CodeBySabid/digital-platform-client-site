@@ -29,7 +29,7 @@ const ApproveRiders = () => {
             .then(result => {
                 if (result.isConfirmed) {
                     const updateInfo = { status , email: rider.email}
-                    axiosSecure.patch(`/riders/${rider._id}`, updateInfo)
+                    axiosSecure.patch(`/riders/${rider._id}/role`, updateInfo)
                         .then(res => {
                             if (res.data.modifiedCount) {
                                 refetch();

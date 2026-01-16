@@ -10,8 +10,8 @@ import { MdDeleteForever } from "react-icons/md";
 
 const UsersManagement = () => {
     const axiosSecure = UseAxiosSecure();
-    const { data: user = [], refetch } = useQuery({
-        queryKey: ['user', 'email'],
+    const { data: users = [], refetch } = useQuery({
+        queryKey: ['users'],
         queryFn: (async () => {
             const res = await axiosSecure.get(`/users`);
             return res.data;
@@ -31,7 +31,7 @@ const UsersManagement = () => {
             .then(result => {
                 if (result.isConfirmed) {
                     const roleInfo = {role};
-                    axiosSecure.patch(`/users/${id}`, roleInfo)
+                    axiosSecure.patch(`/users/${id}/role`, roleInfo)
                         .then(res => {
                             if(res.data.modifiedCount){
                                 refetch();
@@ -74,7 +74,7 @@ const UsersManagement = () => {
     }
     return (
         <div>
-            <h2 className='text-4xl'>Manage Users{user.length}</h2>
+            <h2 className='text-4xl'>Manage Users{users.length}</h2>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
@@ -90,31 +90,31 @@ const UsersManagement = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            user.map((u, index) => <tr key={u._id}>
+                            users.map((user, index) => <tr key={user._id}>
                                 <td>{index + 1}</td>
                                 <td>
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className="mask mask-squircle h-12 w-12">
                                                 <img
-                                                    src={u.photoURL}
+                                                    src={user.photoURL}
                                                     alt="Avatar Tailwind CSS Component" />
                                             </div>
                                         </div>
                                         <div>
-                                            <div className="font-bold">{u.name}</div>
+                                            <div className="font-bold">{user.name}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    {u.email}
+                                    {user.email}
                                 </td>
-                                <td>{u.role}</td>
+                                <td>{user.role}</td>
                                 <td>
                                     {
-                                        u.role === "user" ? <button><FaUserShield onClick={() => handleMakeUser(u._id, 'Admin', u.name)} className='btn' size={28}></FaUserShield></button> : <button onClick={() => handleMakeUser(u._id, 'user', u.name)} className='btn'><FiShieldOff size={28}></FiShieldOff></button>
+                                        user.role === "user" ? <button onClick={() => handleMakeUser(user._id, 'Admin', user.name)} className='btn bg-green-400'><FaUserShield size={20}></FaUserShield></button> : <button onClick={() => handleMakeUser(user._id, 'user', user.name)} className='btn bg-red-300'><FiShieldOff size={20}></FiShieldOff></button>
                                     }
-                                    <button onClick={() => deleteUser(u._id)} className='mx-1 btn'><MdDeleteForever size={28} /></button>
+                                    <button onClick={() => deleteUser(user._id)} className='mx-1 btn bg-red-500'><MdDeleteForever size={20} /></button>
                                 </td>
                             </tr>)
                         }
