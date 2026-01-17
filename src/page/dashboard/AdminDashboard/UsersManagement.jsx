@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UseAxiosSecure from '../../../hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
@@ -10,12 +10,13 @@ import { MdDeleteForever } from "react-icons/md";
 
 const UsersManagement = () => {
     const axiosSecure = UseAxiosSecure();
+    const [searchText, setsearchText] = useState('');
     const { data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
-        queryFn: (async () => {
-            const res = await axiosSecure.get(`/users`);
+        queryKey: ['users', searchText],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/users?searchText=${searchText}`);
             return res.data;
-        })
+        }
     })
 
     const handleMakeUser = (id, role, name) => {
@@ -30,16 +31,16 @@ const UsersManagement = () => {
         })
             .then(result => {
                 if (result.isConfirmed) {
-                    const roleInfo = {role};
+                    const roleInfo = { role };
                     axiosSecure.patch(`/users/${id}/role`, roleInfo)
                         .then(res => {
-                            if(res.data.modifiedCount){
+                            if (res.data.modifiedCount) {
                                 refetch();
                                 Swal.fire({
-                                title: "Success!",
-                                text: `${name} has been successfully made an ${role}.`,
-                                icon: "success"
-                            });
+                                    title: "Success!",
+                                    text: `${name} has been successfully made an ${role}.`,
+                                    icon: "success"
+                                });
                             }
                         })
                 }
@@ -56,25 +57,44 @@ const UsersManagement = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
         })
-        .then(result => {
-            if(result.isConfirmed) {
-                axiosSecure.delete(`/users/${id}`)
-                    .then(res => {
-                        refetch();
-                        if (res.data.deleteCount) {
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: "Your parcel request has been deleted.",
-                                icon: "success"
-                            });
-                        }
-                    })
-            }
-        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    axiosSecure.delete(`/users/${id}`)
+                        .then(res => {
+                            refetch();
+                            if (res.data.deleteCount) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your parcel request has been deleted.",
+                                    icon: "success"
+                                });
+                            }
+                        })
+                }
+            })
     }
     return (
         <div>
-            <h2 className='text-4xl'>Manage Users{users.length}</h2>
+            <h2 className='text-4xl text-center mt-2'>Manage Users{users.length}</h2>
+            <label className="input mx-auto">
+                <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                        strokeLinejoin="round"
+                        strokeLinecap="round"
+                        strokeWidth="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                    >
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+                <input
+                    type="search"
+                    required placeholder="Search"
+                    onChange={(e) => setsearchText(e.target.value)}
+                />
+            </label>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
