@@ -1,166 +1,57 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import UseAxiosSecure from '../../../hooks/UseAxiosSecure';
 
 const AssignRiders = () => {
-
+    const axiosSecure = UseAxiosSecure();
+    const { data: parcels = [] } = useQuery({
+        queryKey: ['parcels', 'pending-pickup'],
+        queryFn: (async () => {
+            const res = await axiosSecure.get(`/parcels?deliveryStatus=pending-pickup`)
+            return res.data
+        })
+    })
     return (
         <div>
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* row 1 */}
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center gap-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle h-12 w-12">
-                                            <img
-                                                src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">Hart Hagerty</div>
-                                        <div className="text-sm opacity-50">United States</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Zemlak, Daniel and Leannon
-                                <br />
-                                <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                            </td>
-                            <td>Purple</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 2 */}
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center gap-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle h-12 w-12">
-                                            <img
-                                                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">Brice Swyre</div>
-                                        <div className="text-sm opacity-50">China</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Carroll Group
-                                <br />
-                                <span className="badge badge-ghost badge-sm">Tax Accountant</span>
-                            </td>
-                            <td>Red</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 3 */}
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center gap-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle h-12 w-12">
-                                            <img
-                                                src="https://img.daisyui.com/images/profile/demo/4@94.webp"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">Marjy Ferencz</div>
-                                        <div className="text-sm opacity-50">Russia</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Rowe-Schoen
-                                <br />
-                                <span className="badge badge-ghost badge-sm">Office Assistant I</span>
-                            </td>
-                            <td>Crimson</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 4 */}
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center gap-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle h-12 w-12">
-                                            <img
-                                                src="https://img.daisyui.com/images/profile/demo/5@94.webp"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">Yancy Tear</div>
-                                        <div className="text-sm opacity-50">Brazil</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Wyman-Ledner
-                                <br />
-                                <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-                            </td>
-                            <td>Indigo</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                    </tbody>
-                    {/* foot */}
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-green-500 font-semibold mt-2 text-center '>Assign Riders {parcels.length}</h1>
+            <div>
+                <div className="overflow-x-auto">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Store</th>
+                                <th>Sender Info</th>
+                                <th>Receiver Info</th>
+                                <th>Delivery Status</th>
+                                <th>Amount</th>
+                                <th>Payment</th>
+                                <th>Create At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                parcels.map((parcel, index) =>
+                                    <tr key={parcel._id}>
+                                        <th>{index + 1}</th>
+                                        <td>{parcel.parcelName}</td>
+                                        <td>{parcel.senderRegions} <br /> {parcel.SenderDistrict}</td>
+                                        <td>{parcel.ReceiverRegions} <br /> {parcel.ReceiverDistrict}</td>
+                                        <td>{parcel.deliveryStatus}</td>
+                                        <td>{parcel.cost}</td>
+                                        <td>{parcel.paymentStatus === 'paid' ? <span className='text-black font-semibold bg-[#5edb24] p-2 rounded'>Paid</span> :
+                                            <button className='btn bg-[#CAEB66] text-black'>Pay</button>
+                                        }</td>
+                                        <td>{parcel.createAt}</td>
+                                        <td className='flex gap-2'>
+                                            <button className='btn bg-[#717bd6]'>Assign Rider</button>
+                                        </td>
+                                    </tr>)
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
