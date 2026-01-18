@@ -5,6 +5,9 @@ import UseAuth from '../../hooks/UseAuth';
 
 const Profile = () => {
     const axiosSecure = UseAxiosSecure();
+    const formateDate = (dateString) => {
+        return new Date(dateString).toISOString().split('T')[0];
+    }
     const {user} = UseAuth();
     const {data: users = []} = useQuery({
         queryKey: ['user', user?.email],
@@ -43,7 +46,7 @@ const Profile = () => {
 
                     <div className='full text-gray-800 flex justify-between'>
                         <h1 className='font-semibold'>Created At</h1>
-                        <h1>{users.createdAt}</h1>
+                        <h1>{formateDate(users.createdAt)}</h1>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,9 @@ import Swal from 'sweetalert2';
 
 const ApproveRiders = () => {
     const axiosSecure = UseAxiosSecure();
+    const formateDate = (dateString) => {
+        return new Date(dateString).toISOString().split('T')[0];
+    }
     const { data: riders = [], refetch } = useQuery({
         queryKey: ["riders", 'pending'],
         queryFn: async () => {
@@ -16,26 +19,26 @@ const ApproveRiders = () => {
         }
     })
 
-    const updateRidersStatus = (rider, status ) => {
+    const updateRidersStatus = (rider, status) => {
         Swal.fire({
             title: "Are you sure?",
-            text: "You won't be approved this!",
+            text: `Do you want to ${status} this apply?`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Approved!"
+            confirmButtonText: `${status}`
         })
             .then(result => {
                 if (result.isConfirmed) {
-                    const updateInfo = { status , email: rider.email}
-                    axiosSecure.patch(`/riders/${rider._id}/role`, updateInfo)
+                    const updateInfo = { status, email: rider.email }
+                    axiosSecure.patch(`/riders/${rider._id}`, updateInfo)
                         .then(res => {
                             if (res.data.modifiedCount) {
                                 refetch();
                                 Swal.fire({
                                     title: "Success!",
-                                    text: "Rider has been Approved.",
+                                    text: `Rider has been ${status}.`,
                                     icon: "success"
                                 });
                             }
@@ -47,7 +50,7 @@ const ApproveRiders = () => {
     const handleRequsetdelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            text: `Do you want to delete this apply?`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -70,7 +73,7 @@ const ApproveRiders = () => {
                 }
             })
     }
-    
+
     return (
         <div>
             <h1 className='text-center text-green-500 mt-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl'>Approved Riders {riders.length}</h1>
@@ -82,7 +85,8 @@ const ApproveRiders = () => {
                             <th>Client</th>
                             <th>Email</th>
                             <th>Date</th>
-                            <th>Status</th>
+                            <th>Application Status</th>
+                            <th>Work Status</th>
                             <th>Region</th>
                             <th>District</th>
                             <th>Action</th>
@@ -95,8 +99,9 @@ const ApproveRiders = () => {
                                     <th>{index + 1}</th>
                                     <td>{rider.name}</td>
                                     <td>{rider.email}</td>
-                                    <td>{rider.createAt}</td>
+                                    <td>{formateDate(rider.createAt)}</td>
                                     <td className={`${rider.status === 'Approved' ? 'text-green-600 font-bold' : "text-red-500"}`}>{rider.status}</td>
+                                    <td className={`${rider.workStatus === 'Available' ? 'text-green-600 font-bold' : "text-red-500"}`}>{rider.workStatus}</td>
                                     <td>{rider.Region}</td>
                                     <td>{rider.district}</td>
                                     <td>

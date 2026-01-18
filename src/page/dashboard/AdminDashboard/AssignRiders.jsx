@@ -38,6 +38,7 @@ const AssignRiders = () => {
                                         <td>{parcel.parcelName}</td>
                                         <td>{parcel.senderRegions} <br /> {parcel.SenderDistrict}</td>
                                         <td>{parcel.ReceiverRegions} <br /> {parcel.ReceiverDistrict}</td>
+                                        <td className={`${parcel.workStatus === 'Available' ? 'text-green-600 font-bold' : "text-red-500"}`}>{parcel.workStatus}</td>
                                         <td>{parcel.deliveryStatus}</td>
                                         <td>{parcel.cost}</td>
                                         <td>{parcel.paymentStatus === 'paid' ? <span className='text-black font-semibold bg-[#5edb24] p-2 rounded'>Paid</span> :

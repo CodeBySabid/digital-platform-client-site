@@ -67,7 +67,7 @@ const SendParcel = () => {
                                 showCancelButton: false,
                                 timer: 2000,
                             });
-                            navigator('/dashboard/all_delivery')
+                            navigator('/dashboard/my-parcels')
                         }
                     })
             }

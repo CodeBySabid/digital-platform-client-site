@@ -9,7 +9,7 @@ const PaymentCancelled = () => {
                     <h1 className="text-3xl font-bold text-red-400">
                         Payment is cancelled. Please try again
                     </h1>
-                    <Link to={'/dashboard/all_delivery'} className="btn bg-green-500 mt-2.5">Try Again</Link>
+                    <Link to={'/dashboard/my-parcels'} className="btn bg-green-500 mt-2.5">Try Again</Link>
                 </div>
             </div>
         </div>

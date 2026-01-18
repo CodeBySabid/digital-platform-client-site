@@ -94,11 +94,11 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'my-parcels',
-                Component: AllDeliveries,
+                Component: MyParcels,
             },
             {
                 path: 'all_delivery',
-                Component: MyParcels,
+                Component: AllDeliveries,
             },
             {
                 path: 'payment/:parcelId',
