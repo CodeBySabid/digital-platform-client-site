@@ -57,7 +57,7 @@ const Rider = () => {
                             {/* License Number field */}
                             <div className='flex flex-col'>
                                 <label className='label'>Driving License Number</label>
-                                <input {...register("license", { required: true })} className="outline-none input" placeholder="Driving License Number" />
+                                <input {...register("license", { required: true })} className="outline-none input" type='number' placeholder="Driving License Number" />
                                 {
                                     errors.license?.type === 'required' && <p className='text-red-600/90'>Driving License Number is require</p>
                                 }
@@ -103,7 +103,7 @@ const Rider = () => {
                             {/* NID field */}
                             <div className='flex flex-col'>
                                 <label className='label'>NID No</label>
-                                <input {...register("nid", { required: true })} className="outline-none input" placeholder="NID" />
+                                <input {...register("nid", { required: true })} className="outline-none input" type='number' placeholder="NID" />
                                 {
                                     errors.nid?.type === 'required' && <p className='text-red-600/90'>NID is require</p>
                                 }
@@ -112,7 +112,7 @@ const Rider = () => {
                             {/* Phone Number field */}
                             <div className='flex flex-col'>
                                 <label className='label'>Phone Number</label>
-                                <input {...register("phonenumber", { required: true })} className="outline-none input" placeholder="Phone Number" />
+                                <input {...register("phonenumber", { required: true })} className="outline-none input" type='number' placeholder="Phone Number" />
                                 {
                                     errors.phonenumber?.type === 'required' && <p className='text-red-600/90'>Phone Number is require</p>
                                 }
@@ -121,7 +121,7 @@ const Rider = () => {
                             {/* Bike Brand Model and Year field */}
                             <div className='flex flex-col'>
                                 <label className='label'>Bike Brand Model and Year</label>
-                                <input {...register("bikebrand", { required: true })} className="outline-none input" placeholder="Bike Brand Model and Year" />
+                                <input {...register("bikebrand", { required: true })} className="outline-none input" type='date' placeholder="Bike Brand Model and Year" />
                                 {
                                     errors.bikebrand?.type === 'required' && <p className='text-red-600/90'>Bike Brand Model and Year is require</p>
                                 }
@@ -130,7 +130,7 @@ const Rider = () => {
                             {/* Bike Registration Number field */}
                             <div className='flex flex-col'>
                                 <label className='label'>Bike Registration Number</label>
-                                <input {...register("bikeregistration", { required: true })} className="outline-none input" placeholder="Bike Registration Number" />
+                                <input {...register("bikeregistration", { required: true })} className="outline-none input" type='number' placeholder="Bike Registration Number" />
                                 {
                                     errors.bikeregistration?.type === 'required' && <p className='text-red-600/90'>Bike Registration Number is require</p>
                                 }

@@ -21,6 +21,7 @@ import ApproveRiders from "../page/dashboard/AdminDashboard/ApproveRiders";
 import UsersManagement from "../page/dashboard/AdminDashboard/UsersManagement";
 import AdminRoute from "./AdminRoute";
 import AssignRiders from "../page/dashboard/AdminDashboard/AssignRiders";
+import Profile from "../page/Profile/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -125,6 +126,10 @@ export const router = createBrowserRouter([
             {
                 path: 'payment-canceled',
                 element: <PaymentCancelled></PaymentCancelled>
+            },
+            {
+                path: 'my-profile',
+                element: <Profile></Profile>
             },
             {
                 path: 'paymenthistory',

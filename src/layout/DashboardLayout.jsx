@@ -7,6 +7,7 @@ import image from '../assets/Log & icon/logo.png'
 import { TbHistory } from 'react-icons/tb';
 import useRole from '../hooks/useRole';
 import { RiEBikeFill } from "react-icons/ri";
+import { FaCircleUser } from 'react-icons/fa6';
 
 
 
@@ -92,6 +93,13 @@ const DashboardLayout = () => {
                             }
 
                             {/* List item */}
+                                    <li>
+                                        <Link to={'/dashboard/my-profile'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Profile">
+                                            {/* Motorcycle icon */}
+                                            <FaCircleUser size={20} />
+                                            <span className="is-drawer-close:hidden">Profile</span>
+                                        </Link>
+                                    </li>
                             <li>
                                 <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                                     {/* Settings icon */}

@@ -126,7 +126,7 @@ const Navbar = ({ theme, setTheme }) => {
     const userProfile = <>
         <div className="relative group">
             {user ? (
-              <Link to={'/myprofile'}>
+              <Link to={'/dashboard/my-profile'}>
                 <img className="rounded-full w-11.25 h-11.25 object-cover cursor-pointer" src={user?.photoURL || <FaUserCircle></FaUserCircle>} alt="profile" />
               </Link>
             ) : ''}
