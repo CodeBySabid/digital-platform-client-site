@@ -108,7 +108,7 @@ const AllDeliveries = () => {
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>No</th>
                                     <th>Store</th>
                                     <th>Recipient Info</th>
                                     <th>Delivery Status</th>
@@ -124,14 +124,14 @@ const AllDeliveries = () => {
                                             <th>{index + 1}</th>
                                             <td>{parcel.parcelName}</td>
                                             <td className='flex flex-col'><p>{parcel.SenderName}</p> {parcel.ReceiverRegions} , {parcel.ReceiverDistrict}</td>
-                                            <td>Paid Return</td>
+                                            <td>{parcel.deliveryStatus}</td>
                                             <td>{parcel.cost}</td>
                                             <td>{parcel.paymentStatus === 'paid' ? <span className='text-green-900 bg-green-300/70 p-2 rounded'>Paid</span> :
                                                 <button onClick={() => handlePayment(parcel)} className='btn bg-[#CAEB66] text-black'>Pay</button>
                                                 // <Link to={`/dashboard/payment/${parcel._id}`} className='btn bg-[#CAEB66] text-black'>Pay</Link>
                                             }</td>
-                                            <td className='flex gap-2'>
-                                                <button className='btn bg-[#94C6CB]'>View</button>
+                                            <td>
+                                                <button className='btn mr-1 bg-[#94C6CB]'>View</button>
                                                 <button onClick={() => handleDelete(parcel._id)} className='btn bg-[#E83330]'>Delete</button>
                                             </td>
                                         </tr>)

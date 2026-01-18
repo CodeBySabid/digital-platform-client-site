@@ -73,6 +73,7 @@ const ApproveRiders = () => {
     
     return (
         <div>
+            <h1 className='text-center text-green-500 mt-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl'>Approved Riders {riders.length}</h1>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>

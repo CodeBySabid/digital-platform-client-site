@@ -6,6 +6,8 @@ import { LiaShippingFastSolid } from "react-icons/lia";
 import image from '../assets/Log & icon/logo.png'
 import { TbHistory } from 'react-icons/tb';
 import useRole from '../hooks/useRole';
+import { RiEBikeFill } from "react-icons/ri";
+
 
 
 const DashboardLayout = () => {
@@ -26,9 +28,7 @@ const DashboardLayout = () => {
                             <h1 className='absolute font-bold -bottom-1 left-3.5  text-2xl max-sm:text-[20px]'>ZapShift</h1>
                         </Link>
                     </nav>
-                    {/* Page content here */}
                     <Outlet></Outlet>
-                    <div className="flex">Page Content</div>
                 </div>
 
                 <div className="drawer-side is-drawer-close:overflow-visible">
@@ -45,14 +45,14 @@ const DashboardLayout = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/dashboard/my-parcels'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="All Deliveries">
+                                <Link to={'/dashboard/all_delivery'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="All Deliveries">
                                     {/* Delivery icon */}
                                     <CiDeliveryTruck size={20} />
                                     <span className="is-drawer-close:hidden">All Deliveries</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/dashboard/all_delivery'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My parcels">
+                                <Link to={'/dashboard/my-parcels'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My parcels">
                                     {/* Shipping icon */}
                                     <LiaShippingFastSolid size={20} />
                                     <span className="is-drawer-close:hidden">My parcels</span>
@@ -79,6 +79,13 @@ const DashboardLayout = () => {
                                             {/* Motorcycle icon */}
                                             <FaUsersCog size={20} />
                                             <span className="is-drawer-close:hidden">Users Management</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={'/dashboard/assign-riders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign Riders">
+                                            {/* Motorcycle icon */}
+                                            <RiEBikeFill size={20} />
+                                            <span className="is-drawer-close:hidden">Assign Riders</span>
                                         </Link>
                                     </li>
                                 </>

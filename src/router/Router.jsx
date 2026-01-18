@@ -20,6 +20,7 @@ import PaymentHistory from "../page/dashboard/UserDashboard/PaymentHistory";
 import ApproveRiders from "../page/dashboard/AdminDashboard/ApproveRiders";
 import UsersManagement from "../page/dashboard/AdminDashboard/UsersManagement";
 import AdminRoute from "./AdminRoute";
+import AssignRiders from "../page/dashboard/AdminDashboard/AssignRiders";
 
 export const router = createBrowserRouter([
     {
@@ -92,11 +93,11 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'my-parcels',
-                Component: MyParcels,
+                Component: AllDeliveries,
             },
             {
                 path: 'all_delivery',
-                Component: AllDeliveries
+                Component: MyParcels,
             },
             {
                 path: 'payment/:parcelId',
@@ -112,13 +113,18 @@ export const router = createBrowserRouter([
                 // element: <ApproveRiders></ApproveRiders>,
             },
             {
-                path: 'payment-canceled',
-                element: <PaymentCancelled></PaymentCancelled>
-            },
-            {
                 path: 'users-management',
                 element: <AdminRoute><UsersManagement></UsersManagement></AdminRoute>,
                 // element: <UsersManagement></UsersManagement>,
+            },
+            {
+                path: 'assign-riders',
+                element: <AdminRoute><AssignRiders></AssignRiders></AdminRoute>,
+                // element: <UsersManagement></UsersManagement>,
+            },
+            {
+                path: 'payment-canceled',
+                element: <PaymentCancelled></PaymentCancelled>
             },
             {
                 path: 'paymenthistory',

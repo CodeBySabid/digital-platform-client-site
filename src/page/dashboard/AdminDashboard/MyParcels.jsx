@@ -55,7 +55,7 @@ const MyParcels = () => {
                             <th>Weight</th>
                             <th>Shipper</th>
                             <th>Price</th>
-                            <th>Status</th>
+                            <th>Delivery Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -69,7 +69,7 @@ const MyParcels = () => {
                                     <td>{parcel.ParcelWeight}</td>
                                     <td>Pathao</td>
                                     <td>{parcel.cost}</td>
-                                    <td>Delivered</td>
+                                    <td>{parcel.deliveryStatus}</td>
                                     <td>
                                         <TbEdit /> Edit
                                         <button onClick={() => handleDelete(parcel._id)} className='btn bg-[#E83330]'>Delete</button>
