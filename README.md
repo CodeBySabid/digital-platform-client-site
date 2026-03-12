@@ -1,5 +1,18 @@
 # 🚀 Key Features of Digital Platform
 
+Digital Platform Client Site is a modern frontend web application designed to provide a seamless and responsive user experience for a digital services platform.
+
+The project focuses on clean UI design, structured component architecture, and scalable frontend development practices. It demonstrates how modern web technologies can be used to build interactive and performance-optimized client-side applications.
+
+Key Features:
+- Responsive and modern UI design
+- Component-based frontend structure
+- Clean and maintainable code architecture
+- Optimized user experience
+- Scalable project structure for future development
+
+This project can serve as a foundation for building digital platforms, business websites, or service-based web applications.
+
 ## 🔐 Authentication & Authorization
 - Secure user authentication system.
 - Login & registration using Firebase authentication.
